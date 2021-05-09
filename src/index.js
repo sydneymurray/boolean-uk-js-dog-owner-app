@@ -8,7 +8,7 @@ function displayMainSelectionMenu(){
 
     // CREATE A MAIN MENU BUTTON FOR EACH DOG
     for (const dog of data) {
-        let listItem = document.createElement('li')
+        listItem = document.createElement('li')
         listItem.innerText = dog.name
         listItem.setAttribute("class","dogs-list__button")       
         dogListMenu.append(listItem)
@@ -100,6 +100,7 @@ function createANewDog(){
 
     // CREATE H2 TITLE
     let newDogTitle = document.createElement('h2')
+    newDogTitle.setAttribute("class","newDogHeading")
     newDogTitle.innerText = "Add a new Dog"
     dogCard.append(newDogTitle)
     
@@ -118,21 +119,82 @@ function createANewDog(){
     dogNameInput.setAttribute("id","name")
     dogNameInput.setAttribute("type","text")
     dogNameInput.setAttribute("name","name")
+    dogNameInput.setAttribute("required","true")
     newDogForm.append(dogNameInput)
 
     // CREATE DOG IMAGE LABEL
-    let dogNameLabel = document.createElement("label")
-    dogNameLabel.setAttribute("for","name")
-    dogNameLabel.innerText="Dog's name"
-    newDogForm.append(dogNameLabel)
+    let dogImageLabel = document.createElement("label")
+    dogImageLabel.setAttribute("for","image")
+    dogImageLabel.innerText="Dog's picture"
+    newDogForm.append(dogImageLabel)
     
     // CREATE DOG IMAGE LINK INPUT
+    let dogImageInput = document.createElement("input")
+    dogImageInput.setAttribute("id","image")
+    dogImageInput.setAttribute("type","url")
+    dogImageInput.setAttribute("name","image")
+    dogImageInput.setAttribute("required","true")
+    newDogForm.append(dogImageInput)
 
-    // CREATE DOG BIOGRAPHY LABEL & TEXT AREA INPUT
+    // CREATE DOG BIOGRAPHY LABEL 
+    let dogBioLabel = document.createElement("label")
+    dogBioLabel.setAttribute("for","bio")
+    dogBioLabel.innerText="Dog's Bio"
+    newDogForm.append(dogBioLabel)
+
+    // CREATE DOG BIOGRAPHY TEXT AREA INPUT
+    let dogBioInput = document.createElement("textarea")
+    dogBioInput.setAttribute("id","bio")
+    dogBioInput.setAttribute("rows","5")
+    dogBioInput.setAttribute("name","bio")
+    dogBioInput.setAttribute("required","true")
+    newDogForm.append(dogBioInput)
 
     // CREATE SUBMIT BUTTON
+    let dogSubmitButton = document.createElement("input")
+    dogSubmitButton.setAttribute("type","submit")
+    dogSubmitButton.setAttribute("id","submit")
+    dogSubmitButton.setAttribute("name","submit")
+    dogSubmitButton.setAttribute("value","Let's add a dog")
+    dogSubmitButton.setAttribute("class","form__button")
+    newDogForm.append(dogSubmitButton)
 
+    // CREATE SUBMIT BUTTON EVENT HANDLER
+    dogSubmitButton.addEventListener("click", function (event){
+      
+      // STOP THE PAGE FROM REFRESHING AND REMOVING THE FORM
+      event.preventDefault(); 
+      
+      // ADD THE DOG TO THE END OF THE DATA ARRAY 
+      let newDog = submitNewDog(newDogForm.name.value, newDogForm.bio.value, newDogForm.image.value)
+      
+      // CREATE A MENU ENTRY FOR THE NEW DOG
+      updateMainMenu(newDog)
+      
+      newDogForm.reset()
+    }) 
+}
 
+function updateMainMenu(dog){
+    let dogListMenu = document.querySelector(".dogs-list")
+    let listItem = document.createElement('li')
+    listItem.innerText = dog.name
+    listItem.setAttribute("class","dogs-list__button")       
+    dogListMenu.append(listItem)
+
+    // CREATE AN EVENT HANDLER FOR EACH BUTTON
+    listItem.addEventListener("click", function (){
+        displayDogCard(dog)}) 
+
+}
+function submitNewDog(name, bio, image){
+    let dog = { id: data.length + 1,
+    name: name,
+    bio: bio,
+    isGoodDog: true,
+    image: image}
+    data.push(dog)
+    return dog
 }
 
 // MAIN PROGRAM //////////////////////////////////////////////
@@ -142,29 +204,6 @@ newDogMenuButton()
 
 // STUFF I MAY USE //////////////////////////////////////////
 /*
-
-// DETERMINE WHICH MENU BUTTON WAS CLICKED
-function menuButtonClicked(eventId){
-    if (eventId.srcElement.innerText==='+')
-        createNewDog()
-    else
-        displayDogCard(eventId)
-}
-
-// FIND THE SELECTED DOG
-function findTheDog(eventId){
-    for (let i = 0; i < data.length; i++)
-    if (eventId.srcElement.innerText===data[i].name)
-        return data[i]
-}
-
-// DIPLAY THE SELeCTED DOG
-function displayTheDog(dog){
-
-}
-
-
-
 
 
 */

@@ -103,8 +103,26 @@ img {
 }
 
 .main__dog-section h2 {
-  margin: 1rem 0;
+  margin: 1rem 0; 
 }
+
+.newDogHeading{
+  padding-left: 140px;
+}
+
+.main__dog-section label,
+.main__dog-section input, 
+.main__dog-section textarea{
+  display: block;
+  margin-top: 0.5ch;
+  margin-left: 50px;
+  width: 360px;
+}
+.main__dog-section input{
+  margin-bottom: 2ch;
+}
+
+
 
 .main__dog-section img {
   margin-bottom: 1rem;
@@ -168,6 +186,7 @@ img {
   cursor: pointer;
 
   transition: all 300ms;
+
 }
 
 .form__button:hover {
